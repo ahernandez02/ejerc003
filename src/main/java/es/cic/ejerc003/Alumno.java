@@ -1,4 +1,4 @@
-package cic.es;
+package es.cic.ejerc003;
 
 import java.util.Objects;
 
@@ -31,7 +31,4 @@ public class Alumno
 		return Objects.hash(apellido, nombre);
 	}
 
-
-	
-	
 }

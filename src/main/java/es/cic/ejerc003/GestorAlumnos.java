@@ -1,6 +1,4 @@
-package cic.es;
-
-import java.util.Iterator;
+package es.cic.ejerc003;
 
 public class GestorAlumnos 
 {

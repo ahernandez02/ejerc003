@@ -1,4 +1,4 @@
-package cic.es;
+package es.cic.ejerc003;
 
 import static org.junit.jupiter.api.Assertions.*;
 

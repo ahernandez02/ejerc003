@@ -1,14 +1,12 @@
-package cic.es;
+package es.cic.ejerc003;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import junit.framework.Assert;
-
 class GestorAlumnosIntegrationTest {
-	
+
 	private GestorAlumnos cut;
 
 	@BeforeEach
@@ -57,6 +55,5 @@ class GestorAlumnosIntegrationTest {
 		
 		assertArrayEquals(cut.getAlumnos(), expectedAlumnos);
 	}
-
 
 }
