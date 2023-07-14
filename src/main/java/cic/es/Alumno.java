@@ -1,5 +1,7 @@
 package cic.es;
 
+import java.util.Objects;
+
 public class Alumno 
 {
 	private String nombre;
@@ -23,4 +25,13 @@ public class Alumno
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(apellido, nombre);
+	}
+
+
+	
+	
 }
