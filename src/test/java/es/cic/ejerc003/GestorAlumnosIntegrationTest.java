@@ -2,6 +2,9 @@ package es.cic.ejerc003;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,11 +19,11 @@ class GestorAlumnosIntegrationTest {
 	}
 
 	@Test
-	void testAnadirAlumno() 
+	void testAdd() 
 	{
 		Alumno alumno = new Alumno("Primer", "Alumno");
 		
-		cut.anadirAlumno(alumno);
+		cut.add(alumno);
 		
 		Alumno[] expectedAlumnos = new Alumno[10];
 		expectedAlumnos[0] = alumno;
@@ -29,13 +32,13 @@ class GestorAlumnosIntegrationTest {
 	}
 
 	@Test
-	void testEditarAlumno() throws Exception 
+	void testUpdate() throws AlumnoNoEncontradoException 
 	{
 		Alumno alumno = new Alumno("Primer", "Alumno");
-		cut.anadirAlumno(alumno);
+		cut.add(alumno);
 		
 		Alumno alumnoEditado = new Alumno("Primer", "AlumnoEditado");
-		cut.editarAlumno(alumno, alumnoEditado);
+		cut.update(alumno, alumnoEditado);
 		
 		Alumno[] expectedAlumnos = new Alumno[10];
 		expectedAlumnos[0] = alumnoEditado;
@@ -44,16 +47,27 @@ class GestorAlumnosIntegrationTest {
 	}
 
 	@Test
-	void testEliminarAlumno() throws Exception 
+	void testDelete() throws AlumnoNoEncontradoException 
 	{
 		Alumno alumno = new Alumno("Primer", "Alumno");
-		cut.anadirAlumno(alumno);
-		cut.eliminarAlumno(alumno);
+		cut.add(alumno);
+		cut.delete(alumno);
 		
 		Alumno[] expectedAlumnos = new Alumno[10];
 		expectedAlumnos[0] = null;
 		
 		assertArrayEquals(cut.getAlumnos(), expectedAlumnos);
 	}
-
+	void testVisualizar() throws IOException
+	{
+		cut.add(new Alumno("Primer", "Alumno"));
+		cut.add(new Alumno("Segundo", "Alumno"));
+		cut.add(new Alumno("Tercer", "Alumno"));
+		
+		String path = cut.visualizar();
+		FileInputStream fis = new FileInputStream(path);
+		int bytesCount = fis.available();
+		
+		assertNotEquals(bytesCount, 0);
+	}
 }

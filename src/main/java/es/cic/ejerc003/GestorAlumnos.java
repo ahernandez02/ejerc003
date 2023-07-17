@@ -1,5 +1,11 @@
 package es.cic.ejerc003;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Iterator;
+
 public class GestorAlumnos 
 {
 	
@@ -10,7 +16,7 @@ public class GestorAlumnos
 		this.alumnos = new Alumno[10];
 	}
 
-	public void anadirAlumno(Alumno alumno)
+	public void add(Alumno alumno)
 	{
 		for(int i = 0; i < alumnos.length; i++)
 		{
@@ -21,17 +27,41 @@ public class GestorAlumnos
 			}
 		}		
 	}
-	public void editarAlumno(Alumno alumno, Alumno alumnoEditado) throws Exception
+	public void update(Alumno alumno, Alumno alumnoEditado) throws AlumnoNoEncontradoException
 	{
-		int i = this.encontrarAlumno(alumno);
+		int i = this.get(alumno);
 		this.alumnos[i] = alumnoEditado;
 	}
-	public void eliminarAlumno(Alumno alumno) throws Exception 
+	public void delete(Alumno alumno) throws AlumnoNoEncontradoException 
 	{
-		int i = this.encontrarAlumno(alumno);
+		int i = this.get(alumno);
 		this.alumnos[i] = null;
 	}
-	private int encontrarAlumno(Alumno alumno) throws Exception
+	public String visualizar()
+	{
+		//Crear fichero en directorio temporal que contenga archivo con contenido del
+		//listado de alumnos
+		String path = "";
+		try 
+		{
+			File f = File.createTempFile("alumnos",".txt");
+			FileWriter fw = new FileWriter(f);
+			for (int i = 0; i < alumnos.length; i++) 
+			{
+				if(this.alumnos[i] == null) continue;
+				fw.write(this.alumnos[i].getNombre() + " " + this.alumnos[i].getApellido() + "\n");
+			}
+			fw.close();
+			path = f.getPath();
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+		return path;
+	}
+	
+	private int get(Alumno alumno) throws AlumnoNoEncontradoException
 	{
 		int pos = -1;
 		
@@ -45,7 +75,7 @@ public class GestorAlumnos
 		}
 		if(pos == -1)
 		{
-			throw new Exception("El alumno no existe");
+			throw new AlumnoNoEncontradoException("El alumno no existe");
 		}
 		return pos;
 	}
